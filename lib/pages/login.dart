@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text('หมายเลขโทรศัพท์'),
+                      Text('หมายเลขโทรศัพท์',style: TextStyle(fontSize: 18),),
                     ],
                   ),
                    TextField(
@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                          const Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text('รหัสผ่าน'),
+                            Text('รหัสผ่าน',style: TextStyle(fontSize: 18),),
                           ],
                         ),
                          TextField(
@@ -68,8 +68,8 @@ class _LoginPageState extends State<LoginPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextButton(onPressed:(){register();}, child: const Text('ลงทะเบียนใหม่')),
-                      FilledButton(onPressed: () {login();}, child: const Text('เข้าสู่ระบบ')),
+                      TextButton(onPressed:(){register();}, child: const Text('ลงทะเบียนใหม่',style: TextStyle(fontSize: 18),)),
+                      FilledButton(onPressed: () {login();}, child: const Text('เข้าสู่ระบบ',style: TextStyle(fontSize: 18),)),
                     ],
                   ),
                   Padding(
@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: OutlinedButton(onPressed: (){}, child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text('sign in with google'),
+                        const Text('sign in with google',style: TextStyle(fontSize: 18),),
                         Image.network('https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',width: 24)
                       ],
                     )),
