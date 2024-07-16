@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ui_class1_flupcs1/pages/register.dart';
+import 'package:ui_class1_flupcs1/pages/showtrip.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -16,6 +17,9 @@ class _LoginPageState extends State<LoginPage> {
 
   String status='';
   int loginTime=0;
+  String PhonNumber='';
+  TextEditingController PhonNOCtl=TextEditingController();
+  TextEditingController PasswordCtl=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,26 +42,24 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                    TextField(
-                    onChanged: (value){
-                      log(value);
-                      },
-
+                    controller: PhonNOCtl,
                       decoration: const InputDecoration(
                           border:
                               OutlineInputBorder(borderSide: BorderSide(width: 1)))),
-                  const Padding(
-                    padding:  EdgeInsets.fromLTRB(0, 30, 0, 20),
+                   Padding(
+                    padding:  const EdgeInsets.fromLTRB(0, 30, 0, 20),
                     child:  Column(
                       children: [
-                         Row(
+                         const Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text('รหัสผ่าน'),
                           ],
                         ),
                          TextField(
+                          controller: PasswordCtl,
                           obscureText: true,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                                 border:
                                     OutlineInputBorder(borderSide: BorderSide(width: 1)))),
                       ],
@@ -151,5 +153,14 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
         status='Login time : $loginTime';
     });
+    log(PhonNOCtl.text);
+    if(PhonNOCtl.text=='0812345678' && PasswordCtl.text=='1234'){
+        Navigator.push(context,MaterialPageRoute(builder:(context)=>const ShowTripPage()),);
+    }else{
+      setState(() {
+        status='phone number or password incorrect';
+      });
+    }
+    
   }
 }
