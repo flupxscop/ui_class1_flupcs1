@@ -37,8 +37,12 @@ class _LoginPageState extends State<LoginPage> {
                       Text('หมายเลขโทรศัพท์'),
                     ],
                   ),
-                  const TextField(
-                      decoration: InputDecoration(
+                   TextField(
+                    onChanged: (value){
+                      log(value);
+                      },
+
+                      decoration: const InputDecoration(
                           border:
                               OutlineInputBorder(borderSide: BorderSide(width: 1)))),
                   const Padding(

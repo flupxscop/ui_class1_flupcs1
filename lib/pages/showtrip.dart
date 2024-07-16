@@ -11,7 +11,9 @@ class _ShowTripPageState extends State<ShowTripPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('รายการทริป'),
+      ),
       body: Container(),
     );
   }
