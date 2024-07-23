@@ -1,11 +1,14 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_class1_flupcs1/models/request/customersLoginPostReq.dart';
+import 'package:ui_class1_flupcs1/models/response/customersLoginPostRes.dart';
 import 'package:ui_class1_flupcs1/pages/register.dart';
 import 'package:ui_class1_flupcs1/pages/showtrip.dart';
-
+import 'package:http/http.dart' as http;
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
@@ -18,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   String status='';
   int loginTime=0;
   String PhonNumber='';
-  TextEditingController PhonNOCtl=TextEditingController();
+  TextEditingController PhoneNOCtl=TextEditingController();
   TextEditingController PasswordCtl=TextEditingController();
 
   @override
@@ -42,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                    TextField(
-                    controller: PhonNOCtl,
+                    controller: PhoneNOCtl,
                       decoration: const InputDecoration(
                           border:
                               OutlineInputBorder(borderSide: BorderSide(width: 1)))),
@@ -153,14 +156,34 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
         status='Login time : $loginTime';
     });
-    log(PhonNOCtl.text);
-    if(PhonNOCtl.text=='0812345678' && PasswordCtl.text=='1234'){
-        Navigator.push(context,MaterialPageRoute(builder:(context)=>const ShowTripPage()),);
-    }else{
-      setState(() {
-        status='phone number or password incorrect';
-      });
+    log(PhoneNOCtl.text);
+    // if(PhonNOCtl.text=='0812345678' && PasswordCtl.text=='1234'){
+    //     Navigator.push(context,MaterialPageRoute(builder:(context)=>const ShowTripPage()),);
+    // }else{
+    //   setState(() {
+    //     status='phone number or password incorrect';
+    //   });
+    // }
+    var data={"phone":"0817399999","password":"1111"};
+    // CustomersLoginPostRequest loginCustomer= customersLoginPostRequestFromJson(json.encode(data));
+    CustomersLoginPostRequest login = CustomersLoginPostRequest(phone: PhoneNOCtl.text, password: PasswordCtl.text);
+    http.post(Uri.parse("http://10.34.40.12:3000/customers/login"),
+    headers: {"Content-Type": "application/json; charset=utf-8"},
+    body:customersLoginPostRequestToJson(login)).then((value) {
+      //ทำได้แต่ไม่แนะนำ
+      // var jsonRes= jsonDecode(value.body);
+      // log(jsonRes['customer']['image']);
+    CustomersLoginPostResponse customer = customersLoginPostResponseFromJson(value.body);
+    log(customer.customer.email);
+    
+    log(value.body);
+    if(value.body!= ""){
+      Navigator.push(context,MaterialPageRoute(builder:(context)=>const ShowTripPage()),);
     }
+    });
+    // http.get(Uri.parse('http://10.34.40.12:3000/customers')).then((value) {
+    //   log(value.body);
+    // });
     
   }
 }
