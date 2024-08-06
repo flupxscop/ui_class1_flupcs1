@@ -4,6 +4,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_class1_flupcs1/config/config.dart';
+import 'package:ui_class1_flupcs1/config/internal_config.dart';
 import 'package:ui_class1_flupcs1/models/request/customersLoginPostReq.dart';
 import 'package:ui_class1_flupcs1/models/response/customersLoginPostRes.dart';
 import 'package:ui_class1_flupcs1/pages/register.dart';
@@ -17,13 +19,24 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
+  String url="";
   String status='';
   int loginTime=0;
   String PhonNumber='';
   TextEditingController PhoneNOCtl=TextEditingController();
   TextEditingController PasswordCtl=TextEditingController();
+  
+  //เป็นฟังก์ชันทำงานครั้งเดียวเท่านั้น
+  //แล้วจะไม่ทำงานตรงsetstate
+  //สั่งทำงานเป็น async await ไม่ได้
+  @override
+  void initState() {
+    super.initState();
+  Configuration.getConfig().then((value){
+    url=value['apiEndpoint'].toString();
+  },);
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
     var data={"phone":"0817399999","password":"1111"};
     // CustomersLoginPostRequest loginCustomer= customersLoginPostRequestFromJson(json.encode(data));
     CustomersLoginPostRequest login = CustomersLoginPostRequest(phone: PhoneNOCtl.text, password: PasswordCtl.text);
-    http.post(Uri.parse("http://10.34.40.12:3000/customers/login"),
+    http.post(Uri.parse('$API_ENDPOINT/customers/login'),
     headers: {"Content-Type": "application/json; charset=utf-8"},
     body:customersLoginPostRequestToJson(login)).then((value) {
       //ทำได้แต่ไม่แนะนำ
