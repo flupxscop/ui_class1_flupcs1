@@ -8,8 +8,12 @@ import 'package:flutter/widgets.dart';
 import 'package:ui_class1_flupcs1/config/config.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_class1_flupcs1/models/response/tripGetRes.dart';
+import 'package:ui_class1_flupcs1/pages/profile.dart';
+import 'package:ui_class1_flupcs1/pages/trip.dart';
 class ShowTripPage extends StatefulWidget {
-  const ShowTripPage({super.key});
+  final int cid;
+  ShowTripPage({super.key,required this.cid});
+  
 
   @override
   State<ShowTripPage> createState() => _ShowTripPageState();
@@ -27,12 +31,39 @@ class _ShowTripPageState extends State<ShowTripPage> {
     // url=value['apiEndpoint'].toString();});
     // getTrips();
     loadData = loadDataAsync();
+    
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('รายการทริป'),
+        automaticallyImplyLeading: false,
+        actions: [
+          PopupMenuButton<String>( 
+          onSelected: (value) {
+              log(value);
+              if (value == 'profile') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>  ProfilePage(idx: widget.cid,),
+                ));
+              } else if (value == 'logout') {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              }
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem<String>(
+                value: 'profile',
+                child: Text('ข้อมูลส่วนตัว'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'logout',
+                child: Text('ออกจากระบบ'),
+                )             
+            ],)
+        ],
       ),
       body: FutureBuilder(
         future: loadData,
@@ -106,14 +137,14 @@ class _ShowTripPageState extends State<ShowTripPage> {
                                          Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Image.network(trip.coverimage,width: 150,),
+                                            Image.network(trip.coverimage,width: 150,errorBuilder: (context,error,stackTrace)=>const Center(child:Text('Not found image')),),
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                  Text(trip.destinationZone),
                                                  Text("ระยะเวลา "+trip.duration.toString()),
                                                  Text(trip.price.toString()),
-                                                FilledButton(onPressed: (){}, child: Text('รายละเอียดเพิ่มเติม')),
+                                                FilledButton(onPressed: ()=>goToTripPage(trip.idx), child: const Text('รายละเอียดเพิ่มเติม')),
                                               ],
                                       ),
                                     ],
@@ -338,5 +369,9 @@ class _ShowTripPageState extends State<ShowTripPage> {
       log(trips.length.toString());
    });
   
+  }
+  
+  void goToTripPage(int idx) {
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>TripPage(idx: idx)));
   }
 }

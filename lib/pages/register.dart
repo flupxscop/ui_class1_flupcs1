@@ -300,7 +300,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             icon: const Icon(
                               Icons.check_circle_outline,
                               color: Colors.green,
-                              size: 50,
+                              size: 50
                             ),
                             content: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,

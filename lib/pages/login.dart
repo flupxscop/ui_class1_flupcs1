@@ -191,7 +191,7 @@ class _LoginPageState extends State<LoginPage> {
     
     log(value.body);
     if(value.body!= ""){
-      Navigator.push(context,MaterialPageRoute(builder:(context)=>const ShowTripPage()),);
+      Navigator.push(context,MaterialPageRoute(builder: (context) => ShowTripPage(cid: customer.customer.idx,),));
     }
     });
     // http.get(Uri.parse('http://10.34.40.12:3000/customers')).then((value) {
