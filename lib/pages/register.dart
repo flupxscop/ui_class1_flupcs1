@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:ui_class1_flupcs1/config/config.dart';
 import 'package:ui_class1_flupcs1/models/request/customersRegisterPostReq.dart';
 import 'package:http/http.dart' as http;
@@ -45,22 +45,22 @@ class _RegisterPageState extends State<RegisterPage> {
             padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
             child: Column(
               children: [
-                Stack(
-                  children: [
-                    const CircleAvatar(
-                      radius: 64,
-                      backgroundImage: NetworkImage(
-                          'https://icons.veryicon.com/png/o/miscellaneous/rookie-official-icon-gallery/225-default-avatar.png'),
-                    ),
-                    Positioned(
-                      child: IconButton(
-                      onPressed: () {SelectIMG(ImageSource.gallery);},
-                      icon: Icon(Icons.add_a_photo_outlined),),
-                      bottom: -10,
-                      left:80
-                      )
-                  ],
-                ),
+                // Stack(
+                //   children: [
+                //     const CircleAvatar(
+                //       radius: 64,
+                //       backgroundImage: NetworkImage(
+                //           'https://icons.veryicon.com/png/o/miscellaneous/rookie-official-icon-gallery/225-default-avatar.png'),
+                //     ),
+                //     Positioned(
+                //       child: IconButton(
+                //       onPressed: () {SelectIMG(ImageSource.gallery);},
+                //       icon: Icon(Icons.add_a_photo_outlined),),
+                //       bottom: -10,
+                //       left:80
+                //       )
+                //   ],
+                // ),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -403,11 +403,11 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
   
-  SelectIMG(ImageSource source) async {
-    final  ImagePicker _imagepPicker =ImagePicker();
-    XFile? _file =await _imagepPicker.pickImage(source: source);
-    if(_file!=null){
-      return _file.readAsBytes();
-    }
-  }
+  // SelectIMG(ImageSource source) async {
+  //   final  ImagePicker _imagepPicker =ImagePicker();
+  //   XFile? _file =await _imagepPicker.pickImage(source: source);
+  //   if(_file!=null){
+  //     return _file.readAsBytes();
+  //   }
+  // }
 }
